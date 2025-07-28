@@ -1,0 +1,426 @@
+    if getgenv()._== 'This script made by "agent.roblox99 and secret.script" | https://discord.gg/345NFC9mQm' then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-547.482239, 173.374954, -0.0784880966)
+    StandOwner = getgenv().AOCSettings.Owner
+    Pos = getgenv().AOCSettings.Position
+    CrewID = getgenv().AOCSettings.CrewID
+    Attack = getgenv().AOCSettings.Attack
+    StandMode = getgenv().AOCSettings.StandMode
+    FlyMode = getgenv().AOCSettings.FlyMode
+    Prediction = getgenv().AOCSettings.Prediction
+    gunkillprediction = getgenv().AOCSettings.GunPrediction
+    CustomName = getgenv().AOCSettings.CustomName
+    AutoMask = getgenv().AOCSettings.AutoMask
+    MaskMode = getgenv().AOCSettings.MaskMode
+    ChatCmds = getgenv().AOCSettings.ChatCmds
+    AttackMode = getgenv().AOCSettings.AttackMode
+    GunMode = getgenv().AOCSettings.GunMode
+    PosingType = getgenv().AOCSettings.Posing
+    Hidescreen = getgenv().AOCSettings.Hidescreen
+    Smoothing = getgenv().AOCSettings.Smoothing
+    Sounds = getgenv().AOCSettings.Sounds
+    SummonMusic = getgenv().AOCSettings.SummonMusic
+    VanishAppear = getgenv().AOCSettings.VanishAppearSound
+    CustomSong = getgenv().AOCSettings.CustomSong
+    resolve = getgenv().AOCSettings.Resolver
+    Bind = getgenv().AOCSettings.AntiStomp
+    Fpscap = getgenv().AOCSettings.FPSCAP
+    lowgraphics = getgenv().AOCSettings.LowGraphics
+    Alt = getgenv().AOCSettings.Alt
+    game.Workspace.FallenPartsDestroyHeight = -1005
+    AutoPredic = Prediction
+    AutoGunPredic = gunkillprediction
+    local NotifyLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/XK5NG/XK5NG.github.io/main/Notify"))()
+    getgenv().ScriptName = 'OSGC stand v3.3'
+    local ScriptName = getgenv().ScriptName
+    local Notify = NotifyLibrary.Notify
+    if getgenv().StandLoaded ~= nil then
+        Notify({Title = "Already Executed!",Duration = 5})
+        Notify({Title = "Already Executed!",Duration = 5})
+        Notify({Title = "Already Executed!",Duration = 5})
+        Notify({Title = "Already Executed!",Duration = 5})
+        return
+    end
+    if game:GetService("Players"):FindFirstChild(StandOwner) then
+        Notify({Title = "Owner Found! ['Owner'] = '"..StandOwner.."'",Duration = 3.4028235e+38})
+        getgenv().StandLoaded = true else
+        Notify({Title = "Owner Is Not In Server Or The User Invalid",Duration = 30})
+        Notify({Title = "Please Check The User On Stand Setting",Duration = 30})
+        Notify({Title = "And Try Re Execute!",Duration = 30})
+        Notify({Title =  "['Owner'] = '"..StandOwner.."',",Duration = 30})
+        return
+    end
+    
+    STAND = game:GetService('Players').LocalPlayer
+    OWNER = game:GetService("Players"):FindFirstChild(StandOwner)
+    rs = game:GetService("RunService")
+    function getRoot(v)local rootPart = v.Character:FindFirstChild('HumanoidRootPart') return rootPart end
+    function getTorso(v)local Torso = v.Character:FindFirstChild('UpperTorso')return Torso end
+    function getHumanoid(v)local Humanoid = v.Character:FindFirstChildOfClass("Humanoid")return Humanoid end
+    function KO(v)local KOEffect = v.Character:FindFirstChild('BodyEffects'):FindFirstChild('K.O')return KOEffect end
+    function Dead(v)local DeadEffect = v.Character:FindFirstChild('BodyEffects'):FindFirstChild('Dead')return DeadEffect end
+    function Attacking(v) local Attacks = v.Character:FindFirstChild('BodyEffects'):FindFirstChild('Attacking') return Attacks end
+    
+    grm = getrawmetatable(game)
+    setreadonly(grm, false)
+    old = grm.__namecall
+    grm.__namecall = newcclosure(function(self, ...)
+        local args = {...}
+        if tostring(args[1]) == "TeleportDetect" then
+            return
+        elseif tostring(args[1]) == "CHECKER_1" then
+            return
+        elseif tostring(args[1]) == "CHECKER" then
+            return
+        elseif tostring(args[1]) == "GUI_CHECK" then
+            return
+        elseif tostring(args[1]) == "OneMoreTime" then
+            return
+        elseif tostring(args[1]) == "checkingSPEED" then
+            return
+        elseif tostring(args[1]) == "BANREMOTE" then
+            return
+        elseif tostring(args[1]) == "PERMAIDBAN" then
+            return
+        elseif tostring(args[1]) == "KICKREMOTE" then
+            return
+        elseif tostring(args[1]) == "BR_KICKPC" then
+            return
+        elseif tostring(args[1]) == "BR_KICKMOBILE" then
+            return
+        end
+        return old(self, ...)
+    end)
+    
+    STAND.Idled:connect(function() game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame) wait(1) game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame) end)
+    
+    if tonumber(Fpscap) then
+        _G.FPS = Fpscap
+        local clock = tick()
+        _G.fps = true 
+        rs.Stepped:connect(function()
+            if _G.fps == true then
+                while clock + 1 / _G.FPS > tick() do end
+                wait()
+                clock = tick()
+            end
+        end)
+    end
+    
+    setfflag("HumanoidParallelRemoveNoPhysics", "False");
+    setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False");
+    
+    for i, _ in pairs(game.Workspace:GetDescendants()) do if _:IsA("Seat") then _:Destroy() end end
+    
+    local fake = Instance.new("Part",game.workspace);
+    fake.Name = "fake";
+    fake.Anchored = true;
+    fake.Size = Vector3.new(50, 5, 50);
+    fake.CFrame = CFrame.new(0, -1005, 0);
+    
+    local float = Instance.new("Part",game.Workspace)
+    float.Name = "FLOATPART"
+    float.Transparency = 1
+    float.Anchored = true
+    float.Size = Vector3.new(6,1,6)
+    
+    if lowgraphics == true then
+        local decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20.
+        local g = game
+        local w = g.Workspace
+        local l = g.Lighting
+        local t = w.Terrain
+        t.WaterWaveSize = 0
+        t.WaterWaveSpeed = 0
+        t.WaterReflectance = 0
+        t.WaterTransparency = 0
+        l.GlobalShadows = false
+        l.FogEnd = 9e9
+        l.Brightness = 0
+        settings().Rendering.QualityLevel = "Level01"
+        for i, v in pairs(g:GetDescendants()) do
+            if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+                v.Material = "Plastic"
+                v.Reflectance = 0
+            elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+                v.Transparency = 1
+            elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+                v.Lifetime = NumberRange.new(0)
+            elseif v:IsA("Explosion") then
+                v.BlastPressure = 1
+                v.BlastRadius = 1
+            elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+                v.Enabled = false
+            elseif v:IsA("MeshPart") then
+                v.Material = "Plastic"
+                v.Reflectance = 0
+                v.TextureID = 10385902758728957
+            end
+        end
+        for i, e in pairs(l:GetChildren()) do
+            if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+                e.Enabled = false
+            end
+        end
+        print("Low Graphics Enabled!")
+    end
+    --local
+    local delta = 0
+    local duration = 0.7
+    local StopHoverAnim = false
+    local Move = 0
+    local reversing = false
+    local StudLimit = 75
+    function Stop()
+        getHumanoid(STAND):UnequipTools()
+        Stompnear = false
+        Knockyes = false
+        StopHoverAnim = false
+        follow = false
+        looking = false
+        noclip = false
+        vanish = false
+        bring = false
+        Knocked = false
+        Kills = false
+        StompTarget = false
+        circle = false
+        Arrest = false
+        Frame = false
+        knifenear = false
+        killnear = false
+        Viewing = false
+        barragepos = false
+        barragepunch = false
+        mimicpunch = false
+        block = false
+        mimic = false
+        GunKnock = false
+        GunStomp = false
+        Strafe = false
+        Locking = false
+        ORA = false
+        Stab = false
+        Line = false
+        Stabbing = false
+        AutoWeight = false
+        Annoy = false
+        KnifeKills = false
+        KnifeAnnoy = false
+        autodrop = false
+        lettucefarm = false
+        Glitch = false
+        SMITE = false
+        Bagging = false
+        Sneak = false
+        boxing = false
+        gunnear = false
+        rs:UnbindFromRenderStep("FOG")
+        if STAND.Character.Head:FindFirstChildWhichIsA("BodyVelocity") then STAND.Character.Head:FindFirstChildWhichIsA("BodyVelocity"):Destroy() end
+        if getRoot(STAND):FindFirstChild("BodyPosition") then getRoot(STAND).BodyPosition:Destroy()end
+        if getRoot(STAND):FindFirstChild("BodyGyro") then getRoot(STAND).BodyGyro:Destroy()end
+    end
+    Stop()
+    
+    function Buy(Item,Price,ItemName)
+        repeat rs.Stepped:Wait()
+            for i,v in pairs(STAND.Character:GetDescendants()) do
+                if v:IsA("BasePart") or v:IsA("MeshPart") or v:IsA("Part") then
+                    v.CanCollide = false
+                end
+            end
+            game.Workspace.Camera.CameraSubject = game.Workspace.Ignored.Shop[Item.." - $"..Price].Head
+            getRoot(STAND).CFrame=game.Workspace.Ignored.Shop[Item.." - $"..Price].Head.CFrame*CFrame.new(0,-5,0)
+            fireclickdetector(game.Workspace.Ignored.Shop[Item.." - $"..Price].ClickDetector)
+        until STAND.Backpack:FindFirstChild(ItemName)
+        game.Workspace.Camera.CameraSubject = getHumanoid(STAND)
+    end
+    
+    function Align(P0, P1, P, R)
+        local A0, A1 = Instance.new("Attachment", P0), Instance.new("Attachment", P1)
+        
+        local AP, AO = Instance.new("AlignPosition", P0), Instance.new("AlignOrientation", P0)
+        
+        A1.Position = P
+        A0.Rotation = R
+        
+        AP.RigidityEnabled = true
+        AP.Responsiveness = 200
+        AP.Attachment0 = A0
+        AP.Attachment1 = A1
+        
+        AO.MaxTorque = 9e9
+        AO.Responsiveness = 200
+        AO.RigidityEnabled = true
+        AO.Attachment0 = A0
+        AO.Attachment1 = A1
+        
+        return A0, A1, AP, A0
+    end
+    
+    function EquipGun(GUN)
+        if STAND.Backpack:FindFirstChild(GUN) then
+            STAND.Backpack:FindFirstChild(GUN).Parent = STAND.Character
+            if GunMode == 'Sky' then
+                GripPos(-7)
+            elseif GunMode == 'Under' then
+                GripPos(7)
+            end
+        end
+    end
+    
+    function GripPos(Y)
+        local LastObject = STAND.Character:FindFirstChildOfClass("Tool")
+        getHumanoid(STAND):UnequipTools() wait(.1)
+        LastObject.GripPos = Vector3.new(-0,-Y,0) wait(.1)
+        STAND.Character:FindFirstChild("Humanoid"):EquipTool(LastObject)
+    end
+    
+    function Fire(Gun,Activate)
+        if STAND.Backpack:FindFirstChild(Gun)then
+            STAND.Backpack:FindFirstChild(Gun).Parent = STAND.Character 
+        elseif STAND.Character:FindFirstChild(Gun) then
+            if Activate == true then 
+                STAND.Character:FindFirstChild(Gun):Activate()
+            elseif Activate == false then
+                STAND.Character:FindFirstChild(Gun):Deactivate()
+            end 
+        end
+    end
+    
+    function Hit()
+        x = STAND.Character:FindFirstChildWhichIsA("Tool")
+        if Attack == 'Heavy' then
+            x:Activate()
+        elseif Attack == 'Light' then
+            x:Activate()
+            x:Deactivate()
+        end
+    end
+    
+    function Equip(Tools)
+        if not STAND.Character:FindFirstChild(Tools) then
+            STAND.Backpack:FindFirstChild(Tools).Parent = STAND.Character
+        end   
+    end
+    
+    --[[function KnifeHit()
+        if Attack == 'Heavy' then
+            if STAND.Character:FindFirstChild('[Pitchfork]') then
+                STAND.Character:FindFirstChild('[Pitchfork]'):Activate()
+            else
+                STAND.Backpack:FindFirstChild('[Pitchfork]').Parent = STAND.Character
+            end   
+        else
+            if Attack == 'Light' then
+                if STAND.Character:FindFirstChild('[Pitchfork]') then
+                    STAND.Character:FindFirstChild('[Pitchfork]'):Activate()
+                    STAND.Character:FindFirstChild('[Pitchfork]'):Deactivate()
+                else
+                    STAND.Backpack:FindFirstChild('[Pitchfork]').Parent = STAND.Character
+                end  
+            end
+        end
+    end]]
+    
+    function Dweld()
+        local Stuff = {
+            "RightHand",
+            "LeftHand",
+            "RightFoot",
+            "LeftFoot",
+            "Head"
+        }
+    
+        pcall(function()
+            for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                for z, BreakingStuff in ipairs(Stuff) do
+                    if v.Name == BreakingStuff then
+                        if v:FindFirstChildOfClass("Motor6D") then
+                            local Weld = v:FindFirstChildOfClass("Motor6D")
+                            Weld:Destroy()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+    
+    function LowerArm(TP)
+        for i,v in pairs(STAND.Character:GetDescendants()) do
+            if v:IsA("BasePart") or v:IsA("MeshPart") or v:IsA("Part") then
+                v.CanCollide = false
+            end
+        end
+        Dweld()
+        STAND.Character:FindFirstChild('RightUpperArm').CFrame = TP
+        STAND.Character:FindFirstChild('RightHand').CFrame = TP
+        STAND.Character:FindFirstChild('LeftHand').CFrame = TP
+        STAND.Character:FindFirstChild('LeftFoot').CFrame = TP
+        STAND.Character:FindFirstChild('RightFoot').CFrame = TP
+        STAND.Character:FindFirstChild('Head').CFrame = TP
+    end
+    
+    function Reload()
+        if STAND.Character:FindFirstChildWhichIsA("Tool") then
+            if STAND.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Ammo") then
+                if STAND.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Ammo").Value <= 0 then
+                    if STAND.Character:FindFirstChild('BodyEffects'):FindFirstChild('Reload').Value == false then
+                        game:GetService("ReplicatedStorage").MainEvent:FireServer("Reload",STAND.Character:FindFirstChildWhichIsA("Tool"))
+                    end
+                end
+            end
+        end
+    end
+    
+    function Reset()
+        game.ReplicatedStorage.MainEvent:FireServer("ResetNew")
+        getHumanoid(STAND):ChangeState'Dead'
+    end
+    
+    function TargetMalee(TARGET)
+          if not STAND.Character.Head:FindFirstChildWhichIsA("BodyVelocity") then
+            local bv = Instance.new("BodyVelocity", STAND.Character.Head)
+            bv.velocity = Vector3.new(0,0,0)
+            bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+        end
+        rs.heartbeat:wait()
+        q = getRoot(TARGET)
+        w = TARGET.Character:FindFirstChild('Head')
+        e = getHumanoid(TARGET)
+        t = getRoot(STAND)
+        t.Velocity = Vector3.new(0,0,0)
+        for _,v in ipairs(STAND.Character:WaitForChild("Humanoid"):GetPlayingAnimationTracks()) do v:Stop() end
+        if game.Workspace.Vehicles:FindFirstChild(TARGET.Name) then
+            t.CFrame = CFrame.new(game.Workspace.Vehicles[TARGET.Name].Position)*CFrame.new(game.Workspace.Vehicles[TARGET.Name].Velocity*.4)*CFrame.new(0,0,0)
+        else
+            if resolve == true then
+                if AttackMode == "Under" then
+                    if STAND.Character:FindFirstChild("BodyEffects"):FindFirstChild("Movement"):FindFirstChild("ReduceWalk") then
+                        t.CFrame = CFrame.new(q.Position + Vector3.new(0,-6.8,0) + (e.MoveDirection*AutoPredic*e.WalkSpeed))*CFrame.Angles(math.pi*0.5,0,0)
+                    else
+                        t.CFrame = q.CFrame*CFrame.new(0,500,0)
+                    end
+                else
+                    if AttackMode == "Sky" then
+                        if STAND.Character:FindFirstChild("BodyEffects"):FindFirstChild("Movement"):FindFirstChild("ReduceWalk") then
+                            t.CFrame = CFrame.new(q.Position + Vector3.new(0,SkyP,0) + (e.MoveDirection*AutoPredic*e.WalkSpeed))
+                        else
+                            t.CFrame = q.CFrame*CFrame.new(0,500,0)
+                        end
+                    end		
+                end
+            else
+                if AttackMode == "Under" then
+                    if STAND.Character:FindFirstChild("BodyEffects"):FindFirstChild("Movement"):FindFirstChild("ReduceWalk") then
+                        t.CFrame = CFrame.new(q.Position.X+(w.Velocity.X*AutoPredic),q.Position.Y+(w.Velocity.Y*0.1),q.Position.Z+(w.Velocity.Z*AutoPredic))*CFrame.new(0,-6.8,0)*CFrame.Angles(math.pi*0.5,0,0)
+                    else
+                        t.CFrame = q.CFrame*CFrame.new(0,500,0)
+                    end
+                else
+                    if AttackMode == "Sky" then
+                        if STAND.Character:FindFirstChild("BodyEffects"):FindFirstChild("Movement"):FindFirstChild("ReduceWalk") then
+                            t.CFrame = CFrame.new(q.Position.X+(w.Velocity.X*AutoPredic),q.Position.Y+(w.Velocity.Y*0.1),q.Position.Z+(w.Velocity.Z*AutoPredic))*CFrame.new(0,0,0)
+                        else
+                            t.CFrame = q.CFrame*CFrame.new(0,500,0)
+                        end
+               
